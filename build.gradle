@@ -1,0 +1,60 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.3.1'
+	id 'io.spring.dependency-management' version '1.1.5'
+}
+
+group = 'org.senla.komar.spring'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+ext {
+	springVersion = "3.3.1"
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	// ** SQL **
+	runtimeOnly 'org.postgresql:postgresql:42.7.3'
+	implementation 'org.liquibase:liquibase-core:4.28.0'
+
+	// ** Data **
+	implementation "org.springframework.boot:spring-boot-starter-data-jpa:${springVersion}"
+
+	// ** Kafka **
+	implementation "org.springframework.kafka:spring-kafka:3.2.2"
+
+	// ** Validation **
+	implementation "org.springframework.boot:spring-boot-starter-validation:${springVersion}"
+
+	// ** Templates **
+	implementation "org.springframework.boot:spring-boot-starter-freemarker:${springVersion}"
+
+	// ** Email sender**
+	implementation "org.springframework.boot:spring-boot-starter-mail:${springVersion}"
+
+	// ** Swagger **
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
+
+	// ** Tests **
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.kafka:spring-kafka-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

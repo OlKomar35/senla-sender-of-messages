@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: senla-sender-of-messages
+
+  datasource:
+    url: jdbc:postgresql://localhost:5536/db_templates
+    username: admin
+    password: root
+    driver-class-name: org.postgresql.Driver
+
+  liquibase:
+    change-log: changelogs/changelog.xml
+    enabled: true
+
+  jpa:
+    show-sql: false
+
+  kafka:
+    consumer:
+      bootstrap:
+        servers: localhost:9092,localhost:9094
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      group-id: payment-created-event
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: "*"
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: komar.olga.v@gmail.com
+    password: "Vika08012018"
+    test-connection: false
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+server:
+  port: 8888
