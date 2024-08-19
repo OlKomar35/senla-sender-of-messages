@@ -4,14 +4,18 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 import org.senla.komar.spring.enums.DeliveryChannel;
 import org.senla.komar.spring.enums.MessageType;
 
@@ -25,13 +29,23 @@ import org.senla.komar.spring.enums.MessageType;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@SuperBuilder
+@Builder
 @ToString
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode
 
 @Entity
 @Table(name = "message_template")
-public class MessageTemplate extends BaseEntity<Integer> {
+public class MessageTemplate  {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id")
+  protected Integer id;
+
+  @Column(name = "created_at")
+  private LocalDateTime createdAt;
+
+  @Column(name = "updated_at")
+  private LocalDateTime updatedAt;
 
   @Column(name = "delivery_channel")
   @Enumerated(EnumType.STRING)
