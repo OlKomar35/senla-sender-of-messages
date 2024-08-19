@@ -29,8 +29,9 @@ spring:
               packages: "*"
 
   mail:
-    host: smtp.gmail.com
-    port: 587
+    protocol: smtps
+    host: smtp.yandex.ru
+    port: 465
     username: ${EMAIL}
     password: ${MY_PASS}
     test-connection: false
