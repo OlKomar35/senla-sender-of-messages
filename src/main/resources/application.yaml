@@ -18,7 +18,7 @@ spring:
   kafka:
     consumer:
       bootstrap:
-        servers: localhost:9092,localhost:9094
+        servers: localhost:9092
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       group-id: payment-created-event
@@ -31,8 +31,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: komar.olga.v@gmail.com
-    password: "Vika08012018"
+    username: ${EMAIL}
+    password: ${MY_PASS}
     test-connection: false
     properties:
       mail:
