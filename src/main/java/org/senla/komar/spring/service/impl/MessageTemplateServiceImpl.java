@@ -32,12 +32,9 @@ public class MessageTemplateServiceImpl implements MessageTemplateService {
     MessageTemplateDto message = messageTemplateRepository
         .findByDeliveryChannelAndMessageType(deliveryChannel, messageType)
         .map(messageTemplateMapper::toMessageTemplateDto)
-        .orElseThrow(() -> {
-              log.debug("Not found Message template");
-              return new TemplateNotFoundException("Not found Message template");
-            }
-        );
-    log.info("Template name: " + message.getTemplateName());
+        .orElseThrow(() -> new TemplateNotFoundException("Not found Message template"));
+    log.info("A {} template was found with a {} type and {} delivery channel"
+        , message.getTemplateName(), messageType.getName(), deliveryChannel.getName());
     return message.getTemplateName();
   }
 }
