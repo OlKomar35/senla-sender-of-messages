@@ -15,6 +15,7 @@ java {
 
 ext {
 	springVersion = "3.3.1"
+	mapstructVersion = "1.5.5.Final"
 }
 
 repositories {
@@ -42,11 +43,18 @@ dependencies {
 	// ** Templates **
 	implementation "org.springframework.boot:spring-boot-starter-freemarker:${springVersion}"
 
-	// ** Email sender**
+	// ** Email sender **
 	implementation "org.springframework.boot:spring-boot-starter-mail:${springVersion}"
 
 	// ** Swagger **
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
+
+	// ** Mapper **
+	implementation "org.mapstruct:mapstruct:${mapstructVersion}"
+	annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+
+	// ** Logging **
+	implementation "org.springframework.boot:spring-boot-starter-logging:${springVersion}"
 
 	// ** Tests **
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'

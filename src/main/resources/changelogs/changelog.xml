@@ -9,14 +9,11 @@
       logicalFilePath="kafka">
 
     <changeSet id="kafka-1-create-templates-email" author="Olga Komar">
-        <sqlFile encoding="utf8" path="./sql/01.create-templates-table-email.sql" relativeToChangelogFile="true"/>
+        <sqlFile encoding="utf8" path="./sql/01.create-templates-table-message.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
     <changeSet id="kafka-1-insert-templates" author="Olga Komar">
         <sqlFile encoding="utf8" path="./sql/02.insert-templates-table.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
-    <changeSet id="kafka-1-create-templates-sms" author="Olga Komar">
-        <sqlFile encoding="utf8" path="./sql/03.create-templates-table-sms.sql" relativeToChangelogFile="true"/>
-    </changeSet>
 </databaseChangeLog>
