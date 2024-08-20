@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum MessageType {
-  NEW_BOOKING("NEW_BOOKING"), CANCELLED_BOOKING("CANCELLED_BOOKING");
+  NEW_BOOKING("NEW_BOOKING"), CANCELLED_BOOKING("CANCELLED_BOOKING"), NEW("NEW");
   private final String name;
 
 }
