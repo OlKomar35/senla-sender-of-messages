@@ -1,19 +1,23 @@
-<?xml version="1.0" encoding="UTF-8"?>   
+<?xml version="1.0" encoding="UTF-8"?>
 <databaseChangeLog
-   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd
       http://www.liquibase.org/xml/ns/pro
       http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd"
-      logicalFilePath="kafka">
+  logicalFilePath="kafka">
 
-    <changeSet id="kafka-1-create-templates-email" author="Olga Komar">
-        <sqlFile encoding="utf8" path="./sql/01.create-templates-table-message.sql" relativeToChangelogFile="true"/>
-    </changeSet>
+  <changeSet id="kafka-1-create-templates-email" author="Olga Komar">
+    <sqlFile encoding="utf8" path="./sql/01.create-templates-table-message.sql" relativeToChangelogFile="true"/>
+  </changeSet>
 
-    <changeSet id="kafka-1-insert-templates" author="Olga Komar">
-        <sqlFile encoding="utf8" path="./sql/02.insert-templates-table.sql" relativeToChangelogFile="true"/>
-    </changeSet>
+  <changeSet id="kafka-1-insert-templates" author="Olga Komar">
+    <sqlFile encoding="utf8" path="./sql/02.insert-templates-table.sql" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet id="kafka-3-create-audit" author="Olga Komar">
+    <sqlFile encoding="utf8" path="./sql/03.create-table-audit.sql" relativeToChangelogFile="true"/>
+  </changeSet>
 
 </databaseChangeLog>

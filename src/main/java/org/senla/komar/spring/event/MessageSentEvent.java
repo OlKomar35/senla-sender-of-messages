@@ -28,6 +28,7 @@ import org.senla.komar.spring.enums.TypePayment;
 public class MessageSentEvent {
   private MessageType messageType;
   private DeliveryChannel deliveryChannel;
+  private Long userId;
   private String guestSurname;
   private String guestFirstname;
   private String guestEmail;
