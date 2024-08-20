@@ -2,6 +2,7 @@ package org.senla.komar.spring.event;
 
 
 import jakarta.validation.constraints.NotNull;
+import java.util.Map;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,18 +30,6 @@ public class MessageSentEvent {
   private MessageType messageType;
   private DeliveryChannel deliveryChannel;
   private Long userId;
-  private String guestSurname;
-  private String guestFirstname;
-  private String guestEmail;
-  private String hotelName;
-  private String hotelAddress;
-  private String hotelPhoneNumber;
-  private String hotelEmail;
-  private Integer countGuests;
-  private String checkInDate;
-  private String checkOutDate;
-  private PaymentStatus paymentStatus;
-  private TypePayment typePayment;
-  private TypeFood typeFood;
+  private Map<String , Object> messageData;
 
 }

@@ -44,3 +44,6 @@ spring:
 
 server:
   port: 8888
+
+template:
+  path: src/main/resources/templates
