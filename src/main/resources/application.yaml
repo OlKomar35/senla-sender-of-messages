@@ -42,8 +42,11 @@ spring:
           starttls:
             enable: true
 
+  freemarker:
+    template-loader-path: classpath:/templates/
+    charset: UTF-8
+
 server:
   port: 8888
 
-template:
-  path: src/main/resources/templates
+

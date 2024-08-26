@@ -1,17 +1,17 @@
-package org.senla.komar.spring.service.impl;
+package org.senla.komar.spring.strategy.impl;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import java.nio.charset.StandardCharsets;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import org.senla.komar.spring.enums.DeliveryChannel;
 import org.senla.komar.spring.event.MessageSentEvent;
-import org.senla.komar.spring.service.ChangingTemplateToPageService;
+import org.senla.komar.spring.processor.TemplateProcessor;
 import org.senla.komar.spring.strategy.SendStrategy;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.mail.MailProperties;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Olga Komar
@@ -19,12 +19,12 @@ import org.springframework.mail.javamail.MimeMessageHelper;
  * Created at 21.08.2024
  */
 @AllArgsConstructor
+@Service(DeliveryChannel.EMAIL_TYPE)
 public class EmailSendStrategyImpl implements SendStrategy {
 
   private JavaMailSender javaMailSender;
   private MailProperties mailProperties;
-  private ChangingTemplateToPageService changingTemplateToPageService;
-
+  private TemplateProcessor templateProcessor;
 
   @Override
   public boolean sendMessage(MessageSentEvent messageSentEvent, String templateName) {
@@ -35,8 +35,7 @@ public class EmailSendStrategyImpl implements SendStrategy {
       helper.setFrom(mailProperties.getUsername());
       helper.setTo(messageSentEvent.getMessageData().get("guestEmail").toString());
       helper.setSubject("Booking hotel");
-      helper.setText(changingTemplateToPageService.getHtmlFromFtl(templateName, messageSentEvent.getMessageData()),
-          true);
+      helper.setText(templateProcessor.getHtmlFromFtl(templateName, messageSentEvent.getMessageData()), true);
       javaMailSender.send(message);
       return true;
     } catch (MessagingException e) {
