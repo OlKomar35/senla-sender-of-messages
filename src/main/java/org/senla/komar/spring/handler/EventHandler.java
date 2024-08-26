@@ -8,8 +8,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.senla.komar.spring.dto.AuditDto;
 import org.senla.komar.spring.event.MessageSentEvent;
-import org.senla.komar.spring.service.AuditService;
 import org.senla.komar.spring.processor.TemplateProcessor;
+import org.senla.komar.spring.service.AuditService;
 import org.senla.komar.spring.service.MessageTemplateService;
 import org.springframework.boot.autoconfigure.mail.MailProperties;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -31,12 +31,8 @@ public class EventHandler {
   private final MailProperties mailProperties;
   private final MessageTemplateService messageTemplateService;
   private final AuditService auditService;
-<<<<<<< Updated upstream
-  private final ChangingTemplateToPageService changingTemplateToPageService;
-=======
   private final TemplateProcessor templateProcessor;
-  private SendStrategy sendStrategy;
->>>>>>> Stashed changes
+
 
   @KafkaListener(topics = "message-send-topic")
   public void handle(MessageSentEvent messageSentEvent) {
@@ -48,7 +44,6 @@ public class EventHandler {
             messageSentEvent.getDeliveryChannel(),
             messageSentEvent.getMessageType());
 
-<<<<<<< Updated upstream
     try {
       MimeMessage message = javaMailSender.createMimeMessage();
       MimeMessageHelper helper = new MimeMessageHelper(message, MimeMessageHelper.MULTIPART_MODE_MIXED,
@@ -56,18 +51,10 @@ public class EventHandler {
       helper.setFrom(mailProperties.getUsername());
       helper.setTo(messageSentEvent.getMessageData().get("guestEmail").toString());
       helper.setSubject("Booking hotel");
-      helper.setText(changingTemplateToPageService.getHtmlFromFtl(templateName, messageSentEvent.getMessageData()),
+      helper.setText(templateProcessor.getHtmlFromFtl(templateName, messageSentEvent.getMessageData()),
           true);
       javaMailSender.send(message);
-=======
-    if(messageSentEvent.getDeliveryChannel().equals(DeliveryChannel.EMAIL)){
-      sendStrategy = new EmailSendStrategyImpl(javaMailSender,mailProperties, templateProcessor);
-    } else {
-      sendStrategy = new SmsSendStrategyImpl(templateProcessor);
-    }
 
-    if(sendStrategy.sendMessage(messageSentEvent, templateName)){
->>>>>>> Stashed changes
       auditService.createAudit(new AuditDto(messageSentEvent.getUserId(),
           LocalDateTime.now(),
           messageSentEvent.getDeliveryChannel(),
