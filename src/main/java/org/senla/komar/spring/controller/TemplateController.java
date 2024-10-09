@@ -21,17 +21,15 @@ public class TemplateController {
 
   @GetMapping("/message-types")
   public List<String> getMessageTypes() {
-    List<String> list = Arrays.stream(MessageType.values())
+      return Arrays.stream(MessageType.values())
         .map(MessageType::getName)
         .collect(Collectors.toList());
-    return list;
   }
 
   @GetMapping("/delivery-channels")
   public List<String> getDeliveryChannels() {
-    List<String> list = Arrays.stream(DeliveryChannel.values())
+      return Arrays.stream(DeliveryChannel.values())
         .map(DeliveryChannel::getName)
         .collect(Collectors.toList());
-    return list;
   }
 }
