@@ -1,6 +1,5 @@
 package org.senla.komar.spring.service.impl;
 
-import java.nio.file.Path;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.senla.komar.spring.dto.MessageTemplateDto;
