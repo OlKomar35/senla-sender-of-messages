@@ -2,11 +2,13 @@ package org.senla.komar.spring.handler;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.senla.komar.spring.dto.AuditDto;
 import org.senla.komar.spring.event.MessageSentEvent;
+import org.senla.komar.spring.processor.TemplateProcessor;
 import org.senla.komar.spring.service.AuditService;
 import org.senla.komar.spring.service.MessageTemplateService;
 import org.springframework.boot.autoconfigure.mail.MailProperties;
@@ -29,6 +31,8 @@ public class EventHandler {
   private final MailProperties mailProperties;
   private final MessageTemplateService messageTemplateService;
   private final AuditService auditService;
+  private final TemplateProcessor templateProcessor;
+
 
   @KafkaListener(topics = "message-send-topic")
   public void handle(MessageSentEvent messageSentEvent) {
@@ -40,14 +44,17 @@ public class EventHandler {
             messageSentEvent.getDeliveryChannel(),
             messageSentEvent.getMessageType());
 
-    MimeMessage message = javaMailSender.createMimeMessage();
-    MimeMessageHelper helper = new MimeMessageHelper(message);
     try {
+      MimeMessage message = javaMailSender.createMimeMessage();
+      MimeMessageHelper helper = new MimeMessageHelper(message, MimeMessageHelper.MULTIPART_MODE_MIXED,
+          StandardCharsets.UTF_8.name());
       helper.setFrom(mailProperties.getUsername());
-      helper.setTo(messageSentEvent.getGuestEmail());
+      helper.setTo(messageSentEvent.getMessageData().get("guestEmail").toString());
       helper.setSubject("Booking hotel");
-      helper.setText("Send new message", true);
+      helper.setText(templateProcessor.getHtmlFromFtl(templateName, messageSentEvent.getMessageData()),
+          true);
       javaMailSender.send(message);
+
       auditService.createAudit(new AuditDto(messageSentEvent.getUserId(),
           LocalDateTime.now(),
           messageSentEvent.getDeliveryChannel(),
