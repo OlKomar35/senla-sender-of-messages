@@ -1,19 +1,11 @@
 package org.senla.komar.spring.event;
 
 
-import jakarta.validation.constraints.NotNull;
-import java.util.Map;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.senla.komar.spring.enums.DeliveryChannel;
 import org.senla.komar.spring.enums.MessageType;
-import org.senla.komar.spring.enums.PaymentStatus;
-import org.senla.komar.spring.enums.TypeFood;
-import org.senla.komar.spring.enums.TypePayment;
+
+import java.util.Map;
 
 /**
  * @author Olga Komar

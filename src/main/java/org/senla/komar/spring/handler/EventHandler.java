@@ -25,7 +25,7 @@ public class EventHandler {
   @KafkaListener(topics = "message-send-topic")
   public void handle(MessageSentEvent messageSentEvent) {
 
-    log.info("Event received: " + messageSentEvent.toString());
+      log.info("Event received: {}", messageSentEvent.toString());
 
     String templateName =
         messageTemplateService.getTemplateByDeliveryChannelAndMessageType(

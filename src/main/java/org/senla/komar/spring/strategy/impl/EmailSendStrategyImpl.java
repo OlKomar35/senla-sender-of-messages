@@ -8,6 +8,8 @@ import org.senla.komar.spring.enums.DeliveryChannel;
 import org.senla.komar.spring.event.MessageSentEvent;
 import org.senla.komar.spring.processor.TemplateProcessor;
 import org.senla.komar.spring.strategy.SendStrategy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.mail.MailProperties;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -22,6 +24,7 @@ import org.springframework.stereotype.Service;
 @Service(DeliveryChannel.EMAIL_TYPE)
 public class EmailSendStrategyImpl implements SendStrategy {
 
+  private static final Logger log = LoggerFactory.getLogger(EmailSendStrategyImpl.class);
   private JavaMailSender javaMailSender;
   private MailProperties mailProperties;
   private TemplateProcessor templateProcessor;
@@ -32,6 +35,8 @@ public class EmailSendStrategyImpl implements SendStrategy {
       MimeMessage message = javaMailSender.createMimeMessage();
       MimeMessageHelper helper = new MimeMessageHelper(message, MimeMessageHelper.MULTIPART_MODE_MIXED,
           StandardCharsets.UTF_8.name());
+        log.info("E-mail: {}", mailProperties.getUsername());
+        log.info("Password: {}", mailProperties.getPassword());
       helper.setFrom(mailProperties.getUsername());
       helper.setTo(messageSentEvent.getMessageData().get("guestEmail").toString());
       helper.setSubject("Booking hotel");
