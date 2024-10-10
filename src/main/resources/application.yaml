@@ -32,8 +32,8 @@ spring:
     protocol: smtps
     host: smtp.yandex.ru
     port: 465
-    username: kom4rolha@yandex.by
-    password: Ro11092008
+    username: ${EMAIL}
+    password: ${MY_PASS}
     test-connection: false
     properties:
       mail:
