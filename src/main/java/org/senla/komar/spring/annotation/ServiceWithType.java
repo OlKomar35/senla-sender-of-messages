@@ -17,5 +17,5 @@ import org.springframework.stereotype.Component;
 @Target(ElementType.TYPE)
 @Component
 public @interface ServiceWithType {
-  String test_type();
+  String test2_type();
 }
